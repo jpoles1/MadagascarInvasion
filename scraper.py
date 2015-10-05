@@ -80,6 +80,6 @@ def organismTypeAnalysis(data):
     plt.title("\nDistribution of Various Invasive Species Types\n", fontsize=40)
     plt.tick_params(labelsize=28)
     plt.tight_layout()
-    #plt.savefig("speciestypes.png")
-    #plt.close()
+    plt.savefig("speciestypes.png")
+    plt.close()
 data = runAnalysis();

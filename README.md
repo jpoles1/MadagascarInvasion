@@ -6,7 +6,12 @@
 4. 
 
 ###Initial Analysis of Types of Invsasive Species
-Data was extracted from: <a target="_blank" href="http://www.issg.org/database/species/search.asp?sts=sss&st=sss&fr=1&x=41&y=6&sn=&rn=Madagascar&hci=-1&ei=-1&lang=EN"><img src="https://github.com/jpoles1/MadagascarInvasion/raw/master/figures/madagascarsearch.png"></img></a>
+Data was extracted from the GISD Madagascar search results: <a target="_blank" href="http://www.issg.org/database/species/search.asp?sts=sss&st=sss&fr=1&x=41&y=6&sn=&rn=Madagascar&hci=-1&ei=-1&lang=EN"><img src="https://github.com/jpoles1/MadagascarInvasion/raw/master/figures/madagascarsearch.png"></img></a>
 - Processed using BeautifulSoup to extract the names of species and their organism type.
 - Plotted using Seaborn
+
 <img src="https://github.com/jpoles1/MadagascarInvasion/raw/master/figures/speciestypes.png"></img>
+
+###Analysis of invasive species origins
+Data was extracted from individual species pages:
+<a target="_blank" href="http://www.issg.org/database/species/distribution.asp?si=51&fr=1&sts=sss&lang=EN"><img src="https://github.com/jpoles1/MadagascarInvasion/raw/master/figures/native.png"></img></a>

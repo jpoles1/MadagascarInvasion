@@ -10,7 +10,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
-from scraperutil import *
 import re
 #Preferences
 figsize = (22, 17)
@@ -20,12 +19,27 @@ def runAnalysis():
     madagascarURL = 'http://www.issg.org/database/species/search.asp?sts=sss&st=sss&fr=1&x=41&y=6&sn=&rn=Madagascar&hci=-1&ei=-1&lang=EN';
     madagascarHTML = fetchWebpage(madagascarURL);
     data = scrapeLocaleData(madagascarHTML);
-    organismTypeAnalysis();
+    organismTypeAnalysis(data);
     nativeAnalysis(data);
     return data;
 def nativeAnalysis(data):
-    nativearrays = data["distlinks"].apply(findNativeRange);
-    
+    global nativeobs;
+    nativeobs = [];
+    nativeframe = pd.DataFrame();
+    data["natives"] = data["distlinks"].apply(findNativeRange);
+    for natives in data["natives"]:
+        nativeobs = nativeobs + natives;
+    nativeframe = pd.DataFrame(nativeobs)
+    nativect = nativeframe[0].value_counts()[0:25];
+    plt.figure(figsize=figsize)
+    sns.barplot(y=nativect.index, x=nativect, palette=pal)
+    plt.ylabel("\nNative Range\n", fontsize=25)
+    plt.xlabel("# of Invasive Species\n", fontsize=25)
+    plt.title("\nDistribution of Madagascar Invasive Species Origins\n", fontsize=40)
+    plt.tick_params(labelsize=28)
+    plt.tight_layout()
+    plt.savefig("figures/invasiveorigins.png")
+    plt.close()
 def findNativeRange(disturl):
     try:
         distHTML = fetchWebpage(urlprefix+disturl);
@@ -66,6 +80,7 @@ def scrapeLocaleData(rawhtml):
     #Organism Type Analysis
     data = pd.DataFrame({"name": names, "taxa": taxa, "ecolink": links})
     data = data.iloc[0:58,:] #Selects only the invasive species
+    #data = data.iloc[0:5,:]
     #Cleaning
     data["taxa"] = data["taxa"].apply(lambda st : st.strip().replace(")", "").replace("(", ""));
     data["distlinks"] = data["ecolink"].apply(lambda st : st.replace("ecology.asp", "distribution.asp"))
@@ -80,6 +95,6 @@ def organismTypeAnalysis(data):
     plt.title("\nDistribution of Various Invasive Species Types\n", fontsize=40)
     plt.tick_params(labelsize=28)
     plt.tight_layout()
-    plt.savefig("speciestypes.png")
+    plt.savefig("figures/speciestypes.png")
     plt.close()
 data = runAnalysis();

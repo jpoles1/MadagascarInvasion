@@ -15,3 +15,4 @@ Data was extracted from the GISD Madagascar search results: <a target="_blank" h
 ###Analysis of invasive species origins
 Data was extracted from individual species pages:
 <a target="_blank" href="http://www.issg.org/database/species/distribution.asp?si=51&fr=1&sts=sss&lang=EN"><img src="https://github.com/jpoles1/MadagascarInvasion/raw/master/figures/native.png"></img></a>
+<img src="https://github.com/jpoles1/MadagascarInvasion/raw/master/figures/invasiveorigins.png"></img>

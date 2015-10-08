@@ -24,15 +24,23 @@ def runAnalysis():
     return data;
 def nativeAnalysis(data):
     global nativeobs;
+    global nativeframe;
+    global nativect;
+    global nativesper;
     nativeobs = [];
+    nativesper = []; #How many Native Countries Per Species
     nativeframe = pd.DataFrame();
     data["natives"] = data["distlinks"].apply(findNativeRange);
     for natives in data["natives"]:
         nativeobs = nativeobs + natives;
-    nativeframe = pd.DataFrame(nativeobs)
-    nativect = nativeframe[0].value_counts()[0:25];
+        nativesper.append(len(natives));
+    nativeframe = pd.DataFrame(nativeobs);
+    nativect = nativeframe[0].value_counts();
+    nativectframe = pd.DataFrame(nativect);#pd.DataFrame({"country": nativect.index, "counts": nativect});
+    cleanNativeGIS(nativectframe);
+    plotct = nativect[0:25];
     plt.figure(figsize=figsize)
-    sns.barplot(y=nativect.index, x=nativect, palette=pal)
+    sns.barplot(y=plotct.index, x=plotct, palette=pal)
     plt.ylabel("\nNative Range\n", fontsize=25)
     plt.xlabel("# of Invasive Species\n", fontsize=25)
     plt.title("\nDistribution of Madagascar Invasive Species Origins\n", fontsize=40)
@@ -40,6 +48,11 @@ def nativeAnalysis(data):
     plt.tight_layout()
     plt.savefig("figures/invasiveorigins.png")
     plt.close()
+    return nativect;
+def cleanNativeGIS(nativectframe):
+    nativectframe["name"] = nativectframe.index;
+    nativectframe.loc[nativectframe["name"].isin(["United States (USA)"]), "name"] = "United States"
+    pd.DataFrame(nativectframe).to_csv("gis/nativeranges.csv");
 def findNativeRange(disturl):
     try:
         distHTML = fetchWebpage(urlprefix+disturl);

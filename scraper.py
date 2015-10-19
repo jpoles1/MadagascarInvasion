@@ -18,10 +18,28 @@ urlprefix = "http://www.issg.org/database/species/"
 def runAnalysis():
     madagascarURL = 'http://www.issg.org/database/species/search.asp?sts=sss&st=sss&fr=1&x=41&y=6&sn=&rn=Madagascar&hci=-1&ei=-1&lang=EN';
     madagascarHTML = fetchWebpage(madagascarURL);
-    data = scrapeLocaleData(madagascarHTML);
-    organismTypeAnalysis(data);
-    nativeAnalysis(data);
-    return data;
+    locationData = scrapeLocaleData(madagascarHTML, 58);
+    organismTypeAnalysis(locationData);
+    #nativeAnalysis(locationData);
+    locationData = topHundred(locationData);
+    return locationData;
+def topHundred(locationData):
+    topURL = "http://www.issg.org/database/species/search.asp?st=100ss&fr=1&str=&lang=EN"
+    topHTML = fetchWebpage(topURL);
+    topData = scrapeLocaleData(topHTML, 100);
+    locationData["top"] = locationData["name"].apply(lambda x : any(topData.name == x));
+    locationData["name"][locationData["top"]].to_csv("worstInvasivesMadagascar.csv") 
+    propPlotData = pd.DataFrame(locationData["top"].value_counts());
+    plt.figure(figsize=figsize)    
+    sns.barplot(data=propPlotData, x=propPlotData.index, y=0)
+    plt.ylabel("\nNumber of Species\n", fontsize=25)
+    plt.xlabel("In The Top 100 List?\n", fontsize=25)
+    plt.title("\nNumber of Madagascar Invasives in the Top 100 Worst Invasives List\n", fontsize=40)
+    plt.tick_params(labelsize=28)
+    plt.tight_layout()
+    plt.savefig("figures/topProp.png")
+    plt.close()
+    return locationData
 def nativeAnalysis(data):
     global nativeobs;
     global nativeframe;
@@ -71,7 +89,7 @@ def fetchWebpage(dataurl):
     res = http.request('GET', dataurl)
     rawhtml = res.data.decode('utf-8')
     return rawhtml;
-def scrapeLocaleData(rawhtml):
+def scrapeLocaleData(rawhtml, nrows):
     #Load up beautiful soup
     soup = BeautifulSoup(rawhtml, 'html.parser')
     #Fetch Species Names
@@ -92,7 +110,7 @@ def scrapeLocaleData(rawhtml):
     taxa = [row for row in taxa if row[0]==" "]
     #Organism Type Analysis
     data = pd.DataFrame({"name": names, "taxa": taxa, "ecolink": links})
-    data = data.iloc[0:58,:] #Selects only the invasive species
+    data = data.iloc[0:nrows,:] #Selects only the invasive species
     #data = data.iloc[0:5,:]
     #Cleaning
     data["taxa"] = data["taxa"].apply(lambda st : st.strip().replace(")", "").replace("(", ""));

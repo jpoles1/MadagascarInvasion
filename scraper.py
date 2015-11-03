@@ -28,7 +28,7 @@ def topHundred(locationData):
     topHTML = fetchWebpage(topURL);
     topData = scrapeLocaleData(topHTML, 100);
     locationData["top"] = locationData["name"].apply(lambda x : any(topData.name == x));
-    locationData["name"][locationData["top"]].to_csv("worstInvasivesMadagascar.csv") 
+    locationData.loc[:,locationData["top"]].to_csv("worstInvasivesMadagascar.csv") 
     propPlotData = pd.DataFrame(locationData["top"].value_counts());
     plt.figure(figsize=figsize)    
     sns.barplot(data=propPlotData, x=propPlotData.index, y=0)

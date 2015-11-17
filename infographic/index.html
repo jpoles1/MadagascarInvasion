@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>Madagascar Infographic</title>
+    <style>
+      body{
+        margin-top: 25px;
+        height: 650px;
+        width: 1400px;
+        overflow: hidden;
+        display: relative;
+        font-family: arial;
+      }
+      h1{
+        text-align: center;
+      }
+      .invader{
+        position: absolute;
+        background-color: #eee;
+        border: 2px solid #ddd;
+        color: black;
+        padding: 25px;
+        left: 485px;
+        display: inline-flex;
+        width: 850px;
+        height: 150px;
+      }
+      .invader h3{
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+      .invader img{
+        border-radius: 15px;
+        margin-right: 35px;
+        margin-left: -10px;
+        width: 140px;
+        height: 140px;
+      }
+      .invader div{
+        margin-bottom: 8px;
+      }
+      .invader ul{
+        margin-top: 3px;
+        padding-left: 25px;
+        list-style: square;
+      }
+      .invader li{
+        margin-left: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Getting to Know Madagascar's Worst Invasive Species</h1>
+    <div id="map">
+      <img src="infographicmap.png"/>
+    </div>
+    <div id="chytrid" class="invader" style="top: 100px;">
+      <img src="chytrid.jpg" width="140" height="140"/>
+      <div>
+        <h3>Chytrid (Fungus): <i>Batrachochytrium dendrobatidis</i></h3>
+        <ul style="display: block;">
+          <li class="line">Chytrid attacks Madagascar's >200 unique frog species.</li>
+          <li class="line">Chytrid was introduced in 2010, it was likely spread by the exotic pet trade.</li>
+          <li class="line">Chytrid may not be easily defeated, but we can fight</li>
+          <li class="line">Monitoring of Chytrid and maintenence of captive populations could save Madagascar's frogs.</li>
+        </ul>
+      </div>
+    </div>
+    <div id="lantana" class="invader" style="top: 325px;">
+      <img src="lantana.jpg"/>
+      <div>
+        <h3>Wild-Sage (Plant): <i>Lantana Camara</i></h3>
+        <ul style="display: block;">
+          <li class="line">Capable of displacing Madagascar's native plant species.</li>
+        </ul>
+      </div>
+    </div>
+    <div id="rattus" class="invader" style="top: 550px;">
+      <img src="rat.jpg" width="140" height="140"/>
+      <div>
+        <h3>Ship Rat (Mammal): <i>Rattus rattus</i></h3>
+        <ul style="display: block;">
+          <li class="line">Predates small birds, reptiles and mammals.</li>
+          <li class="line">Spreads a variety of pathogens to both humans and other species</li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>

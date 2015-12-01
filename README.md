@@ -1,6 +1,7 @@
 # MadagascarInvasion - Reporting On The State of Chytrid In Madagascar
-###This repository contains the code I utilized in order to write a <a target="_blank" href="https://github.com/jpoles1/MadagascarInvasion/raw/master/ChytridReport.pdf">section of a report</a> to a conservation organization regarding an analysis of invasive species on Madagascar. I begin with an analysis of invasive species on Madagascar, before focusing in on Chytrid.
-###Chytrid was introduced to Madagascar very recently; evidence points to an introduction in the period from 2010-2014. It threatens the numerous amphibians endemic to Madagascar (>240 unique species of frog). 
+This repository contains the code I utilized in order to write a <a target="_blank" href="https://github.com/jpoles1/MadagascarInvasion/raw/master/ChytridReport.pdf">section of a report</a> to a conservation organization regarding an analysis of invasive species on Madagascar. I begin with an analysis of invasive species on Madagascar, before focusing in on Chytrid.
+Chytrid was introduced to Madagascar very recently; evidence points to an introduction in the period from 2010-2014. It threatens the numerous amphibians endemic to Madagascar (>240 unique species of frog). 
+###Analysis Process
 1. Invasive species data scraped from the <a target="_blank" href="http://www.issg.org/database/welcome/">GISD</a> using urllib3 for fetching, and BeautifulSoup for parsing.
 2. Madagascar amphibian data aquired from the <a target="_blank" href="http://amphibiaweb.org/ws_locality.html">AmphibiaWeb API</a>
 2. Data was cleaned and ordanized using pandas.
